@@ -15,17 +15,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm ci
 
       - run: npx npm-check-updates -u # Update dependencies
       - run: rm -Rf node_modules package-lock.json
-      - run: npm install
+      - run: pnpm install
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:

@@ -17,14 +17,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm ci
+      - run: pnpm run build
 
   test:
     strategy:
@@ -35,15 +41,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Retrieve Git history, needed to verify commits
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+          run_install: false
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm ci
 
       - name: Set SENTRY_AUTH_TOKEN env if secret exists
         run: |
@@ -52,20 +64,20 @@ jobs:
           fi
 
       - name: Build Next.js for E2E tests
-        run: npm run build
+        run: pnpm run build
 
       - if: github.event_name == 'pull_request'
         name: Validate all commits from PR
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Linter
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Type checking
-        run: npm run check-types
+        run: pnpm run check-types
 
       - name: Run unit tests
-        run: npm run test
+        run: pnpm run test
 
       - name: Install Playwright (used for Storybook and E2E tests)
         run: npx playwright install --with-deps
