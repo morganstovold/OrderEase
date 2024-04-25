@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.0...v1.0.1) (2024-04-25)
+
+
+### Bug Fixes
+
+* **CI:** fixed testing issue ([95720cc](https://github.com/BigBoyLeft/OrderEase/commit/95720cca35d99228ce35ec7fa4cf9724b48fac66))
+
 # 1.0.0 (2024-04-25)
 
 
