@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, import/extensions */
 import { withSentryConfig } from '@sentry/nextjs';
-import './lib/env.mjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const bundleAnalyzer = withBundleAnalyzer({
