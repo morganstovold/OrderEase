@@ -1,3 +1,11 @@
+## [1.0.2](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.1...v1.0.2) (2024-04-30)
+
+
+### Bug Fixes
+
+* **CI:** environment variables ([aeadd80](https://github.com/BigBoyLeft/OrderEase/commit/aeadd8052208c104c1e1b8148b8211927808aa20))
+* **commitlint:** increased body-max-line-length -> 200 ([91bb10f](https://github.com/BigBoyLeft/OrderEase/commit/91bb10f087cafb6137b9af8f6ab2f2ed7c247883))
+
 ## [1.0.1](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.0...v1.0.1) (2024-04-25)
 
 
