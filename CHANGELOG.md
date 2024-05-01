@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.4...v1.0.5) (2024-05-01)
+
+
+### Bug Fixes
+
+* **ci:** woops ([0af019b](https://github.com/BigBoyLeft/OrderEase/commit/0af019bb9e62a642e1c65099c3b8a49bea476f1a))
+
 ## [1.0.4](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.3...v1.0.4) (2024-05-01)
 
 
