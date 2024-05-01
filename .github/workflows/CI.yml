@@ -11,26 +11,31 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x]
+      fail-fast: false
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    name: Build with ${{ matrix.node-version }}
+    name: Build and Test with ${{ matrix.node-version }}
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 8
           run_install: false
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+
+      - uses: jongwooo/next-cache@v1
+
+      - run: pnpm install --frozen-lockfile pnpm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -39,48 +44,12 @@ jobs:
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-
-  test:
-    strategy:
-      matrix:
-        node-version: [20.x]
-
-    name: Run all tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # Retrieve Git history, needed to verify commits
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 8
-          run_install: false
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: pnpm
-          registry-url: 'https://registry.npmjs.org'
-      - run: pnpm install --frozen-lockfile
 
       - name: Set SENTRY_AUTH_TOKEN env if secret exists
         run: |
           if [[ -n "${{ secrets.SENTRY_AUTH_TOKEN }}" ]]; then
             echo "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}" >> $GITHUB_ENV
           fi
-
-      - name: Build Next.js for E2E tests
-        run: pnpm run build
-        env:
-          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
 
       - if: github.event_name == 'pull_request'
         name: Validate all commits from PR
