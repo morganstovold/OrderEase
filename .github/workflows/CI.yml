@@ -33,7 +33,17 @@ jobs:
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
 
-      - uses: jongwooo/next-cache@v1
+      - name: Cache NextJS 
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
 
       - run: pnpm install --frozen-lockfile && pnpm run build
         env:
