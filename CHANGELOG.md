@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.5...v1.0.6) (2024-05-01)
+
+
+### Bug Fixes
+
+* **ci:** nextjs docs CI caching ([a383241](https://github.com/BigBoyLeft/OrderEase/commit/a383241d2232737c0561f591eec98fc2fd028a9d))
+
 ## [1.0.5](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.4...v1.0.5) (2024-05-01)
 
 
