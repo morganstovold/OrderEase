@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.2...v1.0.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* **CI:** fixed missing environment variables ([53d8d81](https://github.com/BigBoyLeft/OrderEase/commit/53d8d8172140f22165d3999d55470a4f2bac3d53))
+
 ## [1.0.2](https://github.com/BigBoyLeft/OrderEase/compare/v1.0.1...v1.0.2) (2024-04-30)
 
 
