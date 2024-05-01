@@ -35,7 +35,7 @@ jobs:
 
       - uses: jongwooo/next-cache@v1
 
-      - run: pnpm install --frozen-lockfile pnpm run build
+      - run: pnpm install --frozen-lockfile && pnpm run build
         env:
           NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
