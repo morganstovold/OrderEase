@@ -2,10 +2,12 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
-import type { PropsWithChildren } from 'react';
+import { type PropsWithChildren, Suspense } from 'react';
 
-import { ModeToggle } from '@/components/ui/theme/theme-button';
+import { Footer } from '@/components/ui/footer';
+import { Navbar } from '@/components/ui/navbar';
 import { ThemeProvider } from '@/components/ui/theme/theme-provider';
+import { Toaster } from '@/components/ui/toast/toaster';
 import { getURL } from '@/lib/helpers';
 import { cn } from '@/lib/utils';
 
@@ -56,8 +58,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
           enableSystem
           disableTransitionOnChange
         >
-          <ModeToggle />
-          <main>{children}</main>
+          <Navbar />
+          <main className="relative min-h-screen">{children}</main>
+          <Footer />
+          <Suspense>
+            <Toaster />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

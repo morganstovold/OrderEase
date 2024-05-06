@@ -18,6 +18,9 @@ const config = {
         '2xl': '1400px'
       }
     },
+    fontFamily: {
+      mono: ['Office Code Pro', 'Source Code Pro', 'Menlo', 'monospace']
+    },
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -52,6 +55,20 @@ const config = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
+        },
+        brand: {
+          100: 'hsl(var(--brand-100))',
+          200: 'hsl(var(--brand-200))',
+          300: 'hsl(var(--brand-300))',
+          400: 'hsl(var(--brand-400))',
+          500: 'hsl(var(--brand-500))',
+          600: 'hsl(var(--brand-600))',
+          700: 'hsl(var(--brand-700))',
+          800: 'hsl(var(--brand-800))',
+          900: 'hsl(var(--brand-900))',
+          1000: 'hsl(var(--brand-1000))',
+          1100: 'hsl(var(--brand-1100))',
+          1200: 'hsl(var(--brand-1200))'
         }
       },
       borderRadius: {

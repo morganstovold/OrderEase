@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/nextjs';
 import * as Spotlight from '@spotlightjs/spotlight';
 
 Sentry.init({
+  enabled: process.env.NODE_ENV === 'production',
   dsn: 'https://830fa1948ab5af958493a03e4e61bfa7@o4507145535094784.ingest.us.sentry.io/4507145899671552',
 
   // Adjust this value in production, or use tracesSampler for greater control
